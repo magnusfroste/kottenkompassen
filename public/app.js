@@ -239,6 +239,7 @@
 
   function saga(text) {
     if (!ljudPa) return;
+          try { if (window.__rost && window.__rost(text, true)) return; } catch (e) { }
     if (!('speechSynthesis' in window)) return;
     try {
       window.speechSynthesis.cancel();
