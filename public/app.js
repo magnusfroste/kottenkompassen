@@ -240,13 +240,7 @@
   function saga(text) {
     if (!ljudPa) return;
           try { if (window.__rost && window.__rost(text, true)) return; } catch (e) { }
-    if (!('speechSynthesis' in window)) return;
-    try {
-      window.speechSynthesis.cancel();
-      var y = new SpeechSynthesisUtterance(text);
-      y.lang = 'sv-SE'; y.rate = 0.95; y.pitch = 1.1;
-      window.speechSynthesis.speak(y);
-    } catch (e) {}
+        console.warn('saknar mp3:', text);
   }
 
   function ritaLjudikon() {
@@ -258,7 +252,7 @@
 
   ljudKnapp.addEventListener('click', function () {
     ljudPa = !ljudPa;
-    if (!ljudPa && 'speechSynthesis' in window) { try { window.speechSynthesis.cancel(); } catch (e) {} }
+    if (!ljudPa) { window.__rostStopp(); }
     ritaLjudikon();
     if (!ljudPa) window.skolappar && window.skolappar.event && window.skolappar.event('sound_off');
   });
